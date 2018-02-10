@@ -1,0 +1,160 @@
+{
+"id":"http://jupiter.datsi.fi.upm.es:8484",
+"name": "WoT WeatherStation",
+"description": "Thing WeatherStation. Observatorio Astronómico Francisco Manuel Sánchez.",
+"tags":[ "WoT", "WeatherStation", "Arduino", "Weather"],
+"customFields":{
+  "hostname":"jupiter.datsi.fi.upm.es",
+  "port":"8484",
+  "secure":"false",
+  "dataArraySize":30
+},
+"links":{
+  "product":{
+    "link":"https://www.arduino.cc",
+    "title":"Product this Web Thing is based on"
+  },
+  "properties": {
+    "link": "/properties",
+    "title":"List of Properties",
+    "resources":{
+      "temperature": {
+        "name": "Sensor de Temperatura.",
+        "description": "Sensor de temperatura ambiente",
+        "values": {
+	  "t":{
+            "name":"Temperature sensor",
+	    "description":"The temperature in celsius",
+	    "unit":"celsius",
+	    "type":"float"
+          }
+        },
+        "tags":["sensor", "public"]
+    },
+    "humidity": {
+      "name": "Sensor de Humedad",
+      "description": "Sensor de humedad ambiente.",
+      "values": {
+	"h":{
+	  "name":"Humidity",
+ 	  "description":"Percentage of Humidity",
+ 	  "unit":"%",
+          "type":"float"
+        }
+      },
+      "tags":["sensor", "public"]
+    },
+    "pressure": {
+      "name": "Barómetro",
+      "description": "Sensor de presión atmosférica.",
+      "values":{
+	"p":{
+	  "name":"Pressure",
+	  "description":"Pascals of pressure",
+	  "unit":"Pascales",
+          "type":"float"
+        }
+      },
+      "tags":["sensor", "public"]
+    },
+    "rainfall": {
+      "name": "Sensor de Lluvia",
+      "description": "Sensor de lluvia, toma valores cuando entra en contacto con agua.",
+      "values":{
+	"r":{
+	  "name":"RainFall",
+	  "description":"Rainfall in mililitros",
+	  "unit":"ml",
+	  "type":"float"
+	}
+      },
+      "tags":["sensor", "public"] 
+    },
+    "windSpeed": {
+      "name": "Anemómetro",
+      "description": "Calcula la velocidad del viento.",
+      "values":{
+	"ws":{
+	  "name":"WindSpeed",
+	  "description":"Speed of the wind",
+	  "unit":"m/s",
+	  "type":"float"
+ 	}
+      },
+      "tags":["sensor", "public"]
+    },
+    "windDirection" : {
+      "name": "Veleta",
+      "description": "Calcula la dirección del viento.",
+      "values":{
+	"wd":{
+	  "name":"WindDirection",
+	  "description":"Direction os the wind",
+	  "unit": {
+      	    "N": "Norte",
+	    "NE": "NorEste",
+	    "E":"Este",
+	    "SE":"SurEste",
+	    "S":"Sur",
+	    "SW":"SurOeste",
+	    "W":"Oeste",
+	    "NW":"NorOeste"
+          },
+	  "type":"char"
+	}
+      },
+      "tags":["sensor", "public"]
+    }
+  }
+},
+"actions":{
+  "link":"/actions",
+  "title":"Actions of the Web Thing",
+  "resources":{}
+},
+"events":{
+  "link":"/events",
+  "title":"Events of the Web Thing",
+  "resources":{
+    "HighTemperature":{
+      "name":"HighTemperature",
+      "description":"Notice when there are high temperatures",
+      "values": {
+	"ht":{
+	  "unit":"celsius",
+	  "type":"float"
+	}
+      }
+    },
+    "Rain":{
+      "name":"Rain",
+      "description":"Notice when there are rain",
+      "values": {
+        "rn":{
+          "unit":"ml",
+          "type":"float"
+        }
+      }
+    },
+    "StrongWind":{
+      "name":"StrongWind",
+      "description":"Notice when there are strong wind",
+      "values": {
+        "sw":{
+          "unit":"m/s",
+          "type":"float"
+        }
+      }
+    }
+  }
+},
+"type":{
+  "link":"http://jupiter.datsi.fi.upm.es:8484/model",
+  "title":"Instance type of the WeatherStation"
+},
+"ui":{
+  "link":"/",
+  "title":"UserInterface"
+}
+}
+}

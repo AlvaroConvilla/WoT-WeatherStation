@@ -1,0 +1,345 @@
+{
+
+  "@context": {
+
+				"wot-td":"https://w3c.github.io/wot/w3c-wot-td-context.jsonld",
+
+               	"wot-context":"https://w3c.github.io/wot/w3c-wot-common-context.jsonld",
+
+			   	"xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    			"schema":"http://schema.org/Product",
+
+    			"schema":"http://schema.org/Place",
+
+			   	"geo": "http://schema.org/geo",
+
+				"latitude": {
+
+					"@id": "http://schema.org/latitude",
+
+					"@type": "xsd:float"
+
+				},
+
+				"longitude": {
+
+					"@id": "http://schema.org/longitude",
+
+					"@type": "xsd:float"
+
+				},
+
+				"image":{
+
+					"@id":"http://schema.org/image",
+
+					"@type": "@id"
+
+				}
+
+				},
+
+  "@type": ["Thing","Product"],
+
+  "@id": "WeatherStation",
+
+  "name": "OAFMS WeatherStation",
+
+  "description": "WeatherStation of the Francisco Manuel Sánchez Astronomical Observatory",
+
+  "base" : "http://jupiter.datsi.fi.upm.es:8484/WeatherStation",
+
+  "image": "http://tycononline.com/assets/images/solar%20transmitter.JPG",
+
+  "location":{
+
+    "@type":"Place",
+
+    "address":{
+
+      "@type": "PostalAddress",
+
+      "addressLocality": "Madrid",
+
+      "addressRegion": "Boadilla del Monte",
+
+      "postalCode": "28660",
+
+      "streetAddress": "Ciruelos"
+
+    }
+
+  },
+
+  "geo": {
+
+	"latitude": "40.40613557505122",
+
+	"longitude": "-3.8385415077209473"
+
+	},
+
+  "tags":["WoT","WeatherStation", "Arduino", "Weather"],
+
+  "form":[{
+
+    "href":"http://jupiter.datsi.fi.upm.es:8484/WeatherStation/model"
+
+  }],
+
+  "interactions":
+
+  {
+
+  "@id":"sensors",
+
+  "@type":"Sensor",
+
+  "form":[{
+
+    "href":"/sensors",
+
+    "mediaType":"application/json"
+
+  }],
+
+		"Sensor": [
+
+			{"@id":"Temperature",
+
+             "@type":["Property","Temperature"],
+
+              "name":"Sensor de Temperatura.",
+
+              "description":"Sensor de temperatura ambiente.",
+
+              "outputData": {
+
+              	"unit":"celsius",
+
+			  	"type": "float"
+
+				},
+
+            "writable": false,
+
+			"observable": true,
+
+			"form": [{
+
+				"href" : "/temperature",
+
+				"mediaType": "application/json"
+
+            }]},
+
+          	{"@id":"Humidity",
+
+             "@type":["Property","Humidity"],
+
+              "name":"Sensor de humedad",
+
+              "description":"Sensor de humedad ambiente.",
+
+			  "outputData": {
+
+				"unit":"%",
+
+			  	"type": "float"
+
+				},
+
+            "writable": false,
+
+			"observable": true,
+
+			"form": [{
+
+				"href" : "/humidity",
+
+				"mediaType": "application/json"
+
+            }]},
+
+			{"@id":"Pressure",
+
+             "@type":["Property","Pressure"],
+
+              "name":"Barómetro",
+
+              "description":"Sensor de presión atmosférica.",
+
+              "outputData": {
+
+              	"unit":"Pascales",
+
+			  	"type": "float"
+
+				},
+
+            "writable": false,
+
+			"observable": true,
+
+			"form": [{
+
+				"href" : "/pressure",
+
+				"mediaType": "application/json"
+
+            }]},
+
+			{"@id":"RainFall",
+
+             "@type":["Property","RainFall"],
+
+              "name":"Sensor de Lluvia",
+
+              "description":"Toma valores cuando entra en contacto con el agua.",
+
+              "outputData": {
+
+              	"unit":"mililitros",
+
+			  	"type": "float"
+
+				},
+
+			"writable": false,
+
+			"observable": true,
+
+			"form": [{
+
+				"href" : "/rainfall",
+
+				"mediaType": "application/json"
+
+            }]},
+
+			{ "@id":"WindSpeed",
+
+             "@type":["Property","WindSpeed"],
+
+              "name":"Anemómetro",
+
+              "description":"Calcula la velocidad del viento.","outputData": {
+
+              "unit":"m/s",
+
+			  "type": "float"
+
+				},
+
+               "writable": false,
+
+				"observable": true,
+
+				"form": [{
+
+					"href" : "/windSpeed",
+
+					"mediaType": "application/json"
+
+                }]},
+
+			{"@id":"WindDirection",
+
+             "@type":["Property","WindDirection"],
+
+              "name":"Veleta",              
+
+              "description":"Calcula la dirección del viento.",
+
+              "outputData": {
+
+			  	"unit": ["N","NE","E","SE","S","SW","W","NW"],
+
+              	"type":"char"
+
+				},
+
+        	"writable": false,
+
+			"observable": true,
+
+			"form": [{
+
+				"href" : "/windDrection",
+
+				"mediaType": "application/json"
+
+          	}]},
+
+    {
+
+      "@id":"HighTemperature",
+
+      "@type": ["Event"],
+
+      "description":"El evento se enviará cuando se detecten temperaturas altas que puedan poner en peligro la integridad de los componentes del Observatorio",
+
+      "outputData": { "type": "float" },
+
+      "name": "High Temperature",
+
+      "property":"Temperature",
+
+      "form": [{
+
+          "href" : "/sensors/highTemp",
+
+          "mediaType": "application/json"
+
+      }]
+
+    }, 
+
+    {
+
+      "@id":"Rain",
+
+      "@type": ["Event"],
+
+      "description":"El evento se enviará cuando se detecte lluvia y se deba cerrar el Observatorio",
+
+      "outputData":  { "type": "float" },
+
+      "name": "Rain",
+
+      "form": [{
+
+          "href" : "/sensors/rain",
+
+          "mediaType": "application/json"
+
+      }]
+
+    },
+
+        {
+
+      "@id":"StrongWind",
+
+      "@type": ["Event"],
+
+      "description":"El evento se enviará cuando se detecte fuerte viento y se deba cerrar el Observatorio",
+
+      "outputData":  { "type": "float" },
+
+      "name": "StrongWind",
+
+      "form": [{
+
+          "href" : "/sensors/strongWind",
+
+          "mediaType": "application/json"
+
+      }]
+
+    }
+
+        ]}
+
+}
